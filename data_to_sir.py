@@ -17,14 +17,12 @@ if country == "argentina":
 else:
     base_address = "https://api.covid19api.com/total/dayone/country/"
     confirmed = pd.read_json(base_address + country + "/status/confirmed")
+    if confirmed.empty: raise Exception('No hay datos rey')
     confirmed.set_index("Date", inplace=True)
     deaths = pd.read_json(base_address + country + "/status/deaths")
     deaths.set_index("Date", inplace=True)
     recovered = pd.read_json(base_address + country + "/status/recovered")
     recovered.set_index("Date", inplace=True)
-
-
-if confirmed.empty: raise Exception('No hay datos rey')
 
 any_dead = True
 if deaths.empty: any_dead = False
@@ -41,7 +39,7 @@ if any_dead:
 if any_recovered:
     active_cases['Cases'] = active_cases['Cases'] - recovered['Cases']
 
-N = 44E6
+N = 44E6;
 
 
 susceptible = confirmed.copy()
