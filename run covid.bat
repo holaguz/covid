@@ -1,1 +1,1 @@
-python covid_log.py
+python covid.py

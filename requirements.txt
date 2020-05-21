@@ -1,2 +1,4 @@
-pandas
-matplotlib
+matplotlib==3.2.1
+numpy==1.18.4
+pandas==1.0.3
+xlrd==1.2.0
