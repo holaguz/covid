@@ -52,6 +52,9 @@ new_cases = confirmed['Cases'].diff().copy()
 active_cases = active_cases[active_cases.index >= start_date]
 new_cases = new_cases[new_cases.index >= start_date]
 
+duplication_time = int(round(confirmed['5 days'].iloc[-1]))
+print(duplication_time)
+
 from matplotlib import ticker
 from matplotlib import rcParams
 
@@ -128,7 +131,8 @@ flavor_dict = {'date' : confirmed.iloc[-1].name.strftime("%d/%m/%Y"),
 				'confirmed' : confirmed.iloc[-1].Cases.astype('int32'),
 				'recovered' : 0 if recovered.empty else recovered.iloc[-1].Cases.astype('int32'),                             
 				'dead' : 0 if deaths.empty else deaths.iloc[-1].Cases.astype('int32'),
-				'new_cases' : new_cases.iloc[-1].astype('int32')}
+				'new_cases' : new_cases.iloc[-1].astype('int32'),
+				'duplication_time' : duplication_time}
 flavor_text_args = {'ha':'left',
                     'va':'top',
                     'textcoords':'offset points',
@@ -137,11 +141,12 @@ flavor_text_args = {'ha':'left',
                     'fontname':'BentonSans-Book',
                     'weight':'regular'}
 
-flavor_text = "{} — {} casos en total — {} recuperados — {} fallecidos — {} nuevos casos".format(flavor_dict['date'],
+flavor_text = "{} — {} casos en total — {} recuperados — {} fallecidos — {} nuevos casos — Tiempo de duplicación (5d) {} días".format(flavor_dict['date'],
                                                                                                  flavor_dict['confirmed'],
                                                                                                  flavor_dict['recovered'],
                                                                                                  flavor_dict['dead'],
-                                                                                                 flavor_dict['new_cases'])
+                                                                                                 flavor_dict['new_cases'],#duplication_time = confirmed['']
+                                                                                                 flavor_dict['duplication_time'])
 xmin, xmax = ax1.get_xlim()
 
 start_date = mpl.dates.date2num(datetime.date.fromisoformat(start_date))
