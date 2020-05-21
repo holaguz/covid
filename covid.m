@@ -5,5 +5,13 @@ function ypred = covid(p, t)
     f = @(t,a) [-beta*a(1)*a(2)/N; %ds/dt = -b*s*i
                 beta*a(2)*a(1)/N - gamma*a(2); %di/dt = b*s*i - g*i
                 gamma*a(2)]; %dr/dt = g*i
+            
+            
+    %f = @(t,a) [-beta*a(1)*a(2)/N; %ds/dt = -b*s*i
+    %            beta*a(2)*a(1)/N - gamma*a(2); %di/dt = b*s*i - g*i
+    %            gamma*a(2)]; %dr/dt = g*i
+            
+            
     [~, ypred] = ode45(f,t,init_cond);
+    %ypred
 end
